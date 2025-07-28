@@ -1,0 +1,111 @@
+{
+	"info": {
+		"_postman_id": "1f7faf02-8fcb-454c-a8bf-6564f44f50a1",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "11805212"
+	},
+	"item": [
+		{
+			"name": "Create a Category",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Electronics_1\",\n  \"description\": \"Electronic devices\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/categories"
+			},
+			"response": []
+		},
+		{
+			"name": "Create a Product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Smartphone\",\n  \"description\": \"Latest model\",\n  \"price\": 699.99,\n  \"stock\": 10,\n  \"categoryId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/products"
+			},
+			"response": []
+		},
+		{
+			"name": "Advanced Product Search",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/products?keyword=smart&minPrice=500&maxPrice=1000&categoryId=1&page=0&size=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"products"
+					],
+					"query": [
+						{
+							"key": "keyword",
+							"value": "smart"
+						},
+						{
+							"key": "minPrice",
+							"value": "500"
+						},
+						{
+							"key": "maxPrice",
+							"value": "1000"
+						},
+						{
+							"key": "categoryId",
+							"value": "1"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Place an Order (Success)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userId\": 1,\n  \"items\": [\n    {\n      \"productId\": 1,\n      \"quantity\": 2\n    }\n  ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/api/v1/orders"
+			},
+			"response": []
+		}
+	]
+}
