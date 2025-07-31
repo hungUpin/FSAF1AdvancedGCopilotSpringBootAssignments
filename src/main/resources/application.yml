@@ -1,0 +1,70 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/copilot?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: 12345
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 30000
+      pool-name: HikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      mode: always
+
+# JWT Configuration
+jwt:
+  secret: myVerySecureSecretKeyThatIs256BitsLongForHS256Algorithm12345
+  expiration: 86400  # 24 hours in seconds
+
+# Logging configuration for security and caching
+logging:
+  level:
+    com.example.copilot.security: DEBUG
+    org.springframework.security: DEBUG
+    '[org.springframework.cache]': DEBUG
+    '[org.hibernate.SQL]': DEBUG
+    '[org.hibernate.type.descriptor.sql.BasicBinder]': TRACE
+    '[com.example.copilot]': DEBUG
+
+# Spring Boot Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,env,configprops,beans,caches
+      base-path: /actuator
+  endpoint:
+    health:
+      show-details: always        # Always show full health details
+      show-components: always     # Show all health indicator components
+      probes:
+        enabled: true            # Enable liveness and readiness probes
+  health:
+    defaults:
+      enabled: true
+    diskspace:
+      enabled: true
+      threshold: 100MB          # Disk space threshold
+    db:
+      enabled: true
+    # Custom health indicators will be automatically included
+    # PaymentGatewayHealthIndicator will appear as "paymentGateway" in health endpoint
+  info:
+    env:
+      enabled: true            # Include environment info
+    git:
+      mode: full              # Show full git information
+  metrics:
+    tags:
+      application: copilot-ecommerce
